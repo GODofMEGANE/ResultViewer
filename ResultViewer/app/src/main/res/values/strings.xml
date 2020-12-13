@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Result Viewer</string>
+    <string name="titleField_hint">Song title</string>
+    <string name="gameField_hint">Game</string>
+    <string name="diffField_hint">Difficulty</string>
+    <string name="targetField_hint">Achievement</string>
+    <string name="subField_hint">Sub</string>
+    <string name="selectImage_text">Select a image</string>
+    <string name="cancel_text">Cancel</string>
+    <string name="save_text">Add a result</string>
+    <string name="diffSpinnerItems_info">Please select a game</string>
+    <string name="tweetButton_text">Tweet</string>
+    <string name="sortByDate_text">Date</string>
+    <string name="sortByTitle_text">Song title</string>
+    <string name="sortByGame_text">Game</string>
+    <string name="delete_text">Delete</string>
+    <string name="edit_text">Edit</string>
+    <string name="chooseApp_text">Choose App</string>
+    <string name="deleteDialog_title">Are you sure you want to delete this file?</string>
+    <string name="deleteDialog_text">This result cannot be undone!</string>
+</resources>

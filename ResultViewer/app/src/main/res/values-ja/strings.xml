@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">リザルト保存君</string>
+    <string name="titleField_hint">曲名</string>
+    <string name="gameField_hint">機種</string>
+    <string name="diffField_hint">難易度/差分</string>
+    <string name="targetField_hint">達成したこと</string>
+    <string name="subField_hint">その他(オプションや縛り内容など)</string>
+    <string name="selectImage_text">画像を選択</string>
+    <string name="cancel_text">キャンセル</string>
+    <string name="save_text">保存</string>
+    <string name="diffSpinnerItems_info">ゲームを選択してください</string>
+    <string name="tweetButton_text">Tweet</string>
+    <string name="sortByDate_text">日付</string>
+    <string name="sortByTitle_text">曲名</string>
+    <string name="sortByGame_text">機種</string>
+    <string name="delete_text">削除</string>
+    <string name="edit_text">編集</string>
+    <string name="chooseApp_text">アプリを選択</string>
+    <string name="deleteDialog_title">本当に削除しますか?</string>
+    <string name="deleteDialog_text">削除した場合、元に戻すことはできません!</string>
+</resources>
