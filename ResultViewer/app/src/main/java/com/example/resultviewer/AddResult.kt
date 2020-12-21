@@ -1,5 +1,6 @@
 package com.example.resultviewer
 
+import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
@@ -12,14 +13,20 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.BufferedReader
 import java.io.File
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AddResult : AppCompatActivity() {
-    var result = Result("", "", "", "", "", "")
+    var result = Result(0, Calendar.getInstance(), "", "", "", "", "", "")
     var targetSpinnerItems: Array<String> = arrayOf()
     var diffSpinnerItems: Array<String> = arrayOf()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_addresult)
+        findViewById<EditText>(R.id.dateFieldId).setText(
+            result.date.get(Calendar.YEAR).toString()+"/"+result.date.get(Calendar.MONTH).toString()+"/"+result.date.get(Calendar.DAY_OF_MONTH).toString()
+        )
         var gameSpinnerItems =
             arrayOf("beatmania IIDX", "BMS", "chunithm", "maimai", "オンゲキ", "sound voltex")
         var gameSpinner = findViewById<Spinner>(R.id.gameSpinnerId)
@@ -123,6 +130,17 @@ class AddResult : AppCompatActivity() {
             }
             startActivityForResult(intent, READ_REQUEST_CODE)
         }
+        var dateButton = findViewById<Button>(R.id.dataInvButtonId)
+        dateButton.setOnClickListener {
+            val dtp = DatePickerDialog(this,DatePickerDialog.OnDateSetListener{view,y,m,d ->
+                result.date.set(y, m, d)
+                findViewById<EditText>(R.id.dateFieldId).setText(
+                    dateToString(result.date)
+                )
+            }, result.date.get(Calendar.YEAR),result.date.get(Calendar.MONTH),result.date.get(Calendar.DAY_OF_MONTH)
+            )
+            dtp.show()
+        }
         var cancelButton = findViewById<Button>(R.id.cancelId)
         cancelButton.setOnClickListener {
             finish()
@@ -138,6 +156,11 @@ class AddResult : AppCompatActivity() {
                 readFiles("resultData.txt") ?: "[]",
                 object : TypeToken<Array<Result?>?>() {}.type
             )
+            if(data != null){
+                result.id = data.size
+            }else{
+                result.id = 0
+            }
             data?.let {
                 data = data!! + result
             }

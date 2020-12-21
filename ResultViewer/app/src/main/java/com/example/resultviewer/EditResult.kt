@@ -1,5 +1,6 @@
 package com.example.resultviewer
 
+import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
@@ -13,15 +14,22 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.BufferedReader
 import java.io.File
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class EditResult : AppCompatActivity() {
-    var result = Result("", "", "", "", "", "")
+    var result = Result(0, Calendar.getInstance(), "", "", "", "", "", "")
     var targetSpinnerItems: Array<String> = arrayOf()
     var diffSpinnerItems: Array<String> = arrayOf()
     var changeFlag: Array<Boolean> = arrayOf(false, false, false)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_addresult)
+        findViewById<EditText>(R.id.dateFieldId).setText(
+            result.date.get(Calendar.YEAR).toString()+"/"+result.date.get(Calendar.MONTH).toString()+"/"+result.date.get(Calendar.DAY_OF_MONTH).toString()
+        )
         val pos = intent.getIntExtra("RESULTID", 0)
         var resultList: Array<Result> = Gson().fromJson(
             readFiles("resultData.txt") ?: "[]",
@@ -144,6 +152,17 @@ class EditResult : AppCompatActivity() {
                 type = "image/*"
             }
             startActivityForResult(intent, READ_REQUEST_CODE)
+        }
+        var dateButton = findViewById<Button>(R.id.dataInvButtonId)
+        dateButton.setOnClickListener {
+            val dtp = DatePickerDialog(this, DatePickerDialog.OnDateSetListener{ view, y, m, d ->
+                result.date.set(y, m, d)
+                findViewById<EditText>(R.id.dateFieldId).setText(
+                    dateToString(result.date)
+                )
+            }, result.date.get(Calendar.YEAR),result.date.get(Calendar.MONTH),result.date.get(Calendar.DAY_OF_MONTH)
+            )
+            dtp.show()
         }
         var cancelButton = findViewById<Button>(R.id.cancelId)
         cancelButton.setOnClickListener {

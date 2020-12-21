@@ -19,4 +19,6 @@
     <string name="chooseApp_text">アプリを選択</string>
     <string name="deleteDialog_title">本当に削除しますか?</string>
     <string name="deleteDialog_text">削除した場合、元に戻すことはできません!</string>
+    <string name="dateField_hint">日付</string>
+    <string name="setDateButton_text">日付を設定</string>
 </resources>

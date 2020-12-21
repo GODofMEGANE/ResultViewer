@@ -92,6 +92,7 @@ class ShowResult : AppCompatActivity() {
         findViewById<TextView>(R.id.showTitleId).text =
             (result.title + " " + result.diff + " " + result.target + " " + result.sub)
         findViewById<TextView>(R.id.showGameId).text = result.game
+        findViewById<TextView>(R.id.showDateId).text = dateToString(result.date)
     }
 
     private fun saveFile(file: String, str: String) {

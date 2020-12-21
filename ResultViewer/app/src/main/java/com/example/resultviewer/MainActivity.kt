@@ -14,8 +14,12 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.BufferedReader
 import java.io.File
+import java.time.LocalDate
+import java.util.*
 
 data class Result(
+    var id: Int,
+    var date: Calendar,
     var image: String,
     var title: String,
     var game: String,
@@ -25,6 +29,7 @@ data class Result(
 )
 
 class MainActivity : AppCompatActivity() {
+    var idList: Array<Int> = arrayOf()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -45,7 +50,6 @@ class MainActivity : AppCompatActivity() {
             ) {
                 drawView()
             }
-
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
         var addButton = findViewById<FloatingActionButton>(R.id.addButtonId)
@@ -56,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         var mainList = findViewById<ListView>(R.id.mainListId)
         mainList.setOnItemClickListener { parent, view, position, id ->
             val intentShow = Intent(this, ShowResult::class.java)
-            intentShow.putExtra("RESULTID", position)
+            intentShow.putExtra("RESULTID", idList[position])
             startActivity(intentShow)
         }
     }
@@ -73,6 +77,8 @@ class MainActivity : AppCompatActivity() {
         )
         when (findViewById<Spinner>(R.id.sortSpinnerId).selectedItemPosition) {
             0 -> {
+                resultList.sortBy { it.date }
+                resultList.reverse()
             }
             1 -> {
                 resultList.sortBy { it.title }
@@ -81,9 +87,12 @@ class MainActivity : AppCompatActivity() {
                 resultList.sortBy { it.game }
             }
         }
+        var setIdList: Array<Int> = arrayOf()
+        resultList.forEach { setIdList += it.id }
+        idList = setIdList
         var viewList: Array<String> = arrayOf()
         resultList.forEach {
-            viewList += (it.title + " " + it.diff + " " + it.target + " " + it.sub + " " + it.game)
+            viewList += (it.title + " " + it.diff + " " + it.target + " " + it.sub + " " + it.game + " (" + dateToString(it.date) + ")")
         }
         val mainList = findViewById<ListView>(R.id.mainListId)
         val adapter = ArrayAdapter(
@@ -103,4 +112,8 @@ class MainActivity : AppCompatActivity() {
             return readFile.bufferedReader().use(BufferedReader::readText)
         }
     }
+}
+
+fun dateToString(date: Calendar): String{
+    return date.get(Calendar.YEAR).toString()+"/"+(date.get(Calendar.MONTH)+1).toString()+"/"+date.get(Calendar.DAY_OF_MONTH).toString()
 }
