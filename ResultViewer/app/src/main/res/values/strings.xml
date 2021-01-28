@@ -20,4 +20,5 @@
     <string name="deleteDialog_text">This result cannot be undone!</string>
     <string name="dateField_hint">Date</string>
     <string name="setDateButton_text">Set Date</string>
+    <string name="showresult_errortoast">Could not open image</string>
 </resources>

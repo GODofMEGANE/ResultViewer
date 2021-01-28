@@ -2,13 +2,16 @@ package com.example.resultviewer
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.media.Image
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ShareCompat
@@ -16,6 +19,8 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.BufferedReader
 import java.io.File
+import java.io.FileNotFoundException
+import java.io.InputStream
 
 
 class ShowResult : AppCompatActivity() {
@@ -84,8 +89,16 @@ class ShowResult : AppCompatActivity() {
             object : TypeToken<Array<Result?>?>() {}.type
         )
         val result = resultList[pos]
-        val inputStream = contentResolver?.openInputStream(Uri.parse(result.image))
-        val image = BitmapFactory.decodeStream(inputStream)
+        var inputStream: InputStream?
+        var image: Bitmap
+        try {
+            inputStream = contentResolver?.openInputStream(Uri.parse(result.image))
+            image = BitmapFactory.decodeStream(inputStream)
+        }
+        catch(e: FileNotFoundException){
+            Toast.makeText(applicationContext, R.string.showresult_errortoast, Toast.LENGTH_LONG).show()
+            image = BitmapFactory.decodeResource(getResources(), android.R.drawable.editbox_dropdown_light_frame)
+        }
         val imageView = findViewById<ImageView>(R.id.showImageId)
         imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE)
         imageView.setImageBitmap(image)
