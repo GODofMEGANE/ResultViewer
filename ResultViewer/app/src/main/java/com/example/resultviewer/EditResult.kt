@@ -28,7 +28,7 @@ class EditResult : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_addresult)
         findViewById<EditText>(R.id.dateFieldId).setText(
-            result.date.get(Calendar.YEAR).toString()+"/"+result.date.get(Calendar.MONTH).toString()+"/"+result.date.get(Calendar.DAY_OF_MONTH).toString()
+            dateToString(result.date)
         )
         val pos = intent.getIntExtra("RESULTID", 0)
         var resultList: Array<Result> = Gson().fromJson(

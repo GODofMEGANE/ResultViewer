@@ -21,4 +21,5 @@
     <string name="deleteDialog_text">削除した場合、元に戻すことはできません!</string>
     <string name="dateField_hint">日付</string>
     <string name="setDateButton_text">日付を設定</string>
+    <string name="showresult_errortoast">画像が開けませんでした</string>
 </resources>
