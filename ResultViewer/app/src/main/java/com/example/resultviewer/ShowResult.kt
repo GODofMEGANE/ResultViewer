@@ -67,7 +67,12 @@ class ShowResult : AppCompatActivity() {
         val result = resultList[pos]
         val builder = ShareCompat.IntentBuilder.from(this)
         builder.setChooserTitle(getString(R.string.chooseApp_text))
-        builder.setText(result.title + " " + result.diff + " " + result.target + " " + result.sub)
+        if(result.sub != null){
+            builder.setText(result.title + " " + result.diff + " " + result.target)
+        }
+        else{
+            builder.setText(result.title + " " + result.diff + " " + result.target + " " + result.sub)
+        }
         builder.setType("image/jpg")
         builder.addStream(Uri.parse(result.image))
         builder.startChooser()

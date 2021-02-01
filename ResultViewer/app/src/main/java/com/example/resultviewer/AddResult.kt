@@ -25,7 +25,7 @@ class AddResult : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_addresult)
         findViewById<EditText>(R.id.dateFieldId).setText(
-            result.date.get(Calendar.YEAR).toString()+"/"+result.date.get(Calendar.MONTH).toString()+"/"+result.date.get(Calendar.DAY_OF_MONTH).toString()
+            dateToString(result.date)
         )
         var gameSpinnerItems =
             arrayOf("beatmania IIDX", "BMS", "chunithm", "maimai", "オンゲキ", "sound voltex")
@@ -79,7 +79,7 @@ class AddResult : AppCompatActivity() {
                             "MAX",
                             "合格"
                         )
-                        diffSpinnerItems = arrayOf("★", "☆", "★★", "st", "sl", "▼", "▽")
+                        diffSpinnerItems = arrayOf("")
                     }
                     2 -> {
                         targetSpinnerItems = arrayOf("S", "SS", "SSS", "FC", "AJ", "AJC", "合格")
